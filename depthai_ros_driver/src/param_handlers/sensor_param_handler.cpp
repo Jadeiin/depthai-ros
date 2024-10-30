@@ -75,17 +75,17 @@ void SensorParamHandler::declareParams(std::shared_ptr<dai::node::MonoCamera> mo
     }
     monoCam->setImageOrientation(
         utils::getValFromMap(declareAndLogParam<std::string>("i_sensor_img_orientation", "AUTO"), dai_nodes::sensor_helpers::cameraImageOrientationMap));
-    if(declareAndLogParam<bool>("i_set_auto_exposure_limit", false)) {
-        monoCam->initialControl.setAutoExposureLimit(declareAndLogParam<int>("i_auto_exposure_limit", 1000));
+    if(declareAndLogParam<bool>("r_set_auto_exposure_limit", false)) {
+        monoCam->initialControl.setAutoExposureLimit(declareAndLogParam<int>("r_auto_exposure_limit", 1000));
     }
-    if(declareAndLogParam("i_set_sharpness", false)) {
-        monoCam->initialControl.setSharpness(declareAndLogParam<int>("i_sharpness", 1));
+    if(declareAndLogParam("r_set_sharpness", false)) {
+        monoCam->initialControl.setSharpness(declareAndLogParam<int>("r_sharpness", 1));
     }
-    if(declareAndLogParam("i_set_chroma_denoise", false)) {
-        monoCam->initialControl.setChromaDenoise(declareAndLogParam<int>("i_chroma_denoise", 1));
+    if(declareAndLogParam("r_set_chroma_denoise", false)) {
+        monoCam->initialControl.setChromaDenoise(declareAndLogParam<int>("r_chroma_denoise", 1));
     }
-    if(declareAndLogParam("i_set_luma_denoise", false)) {
-        monoCam->initialControl.setLumaDenoise(declareAndLogParam<int>("i_luma_denoise", 1));
+    if(declareAndLogParam("r_set_luma_denoise", false)) {
+        monoCam->initialControl.setLumaDenoise(declareAndLogParam<int>("r_luma_denoise", 1));
     }
 }
 
@@ -178,17 +178,17 @@ void SensorParamHandler::declareParams(std::shared_ptr<dai::node::ColorCamera> c
     }
     colorCam->setImageOrientation(
         utils::getValFromMap(declareAndLogParam<std::string>("i_sensor_img_orientation", "AUTO"), dai_nodes::sensor_helpers::cameraImageOrientationMap));
-    if(declareAndLogParam<bool>("i_set_auto_exposure_limit", false)) {
-        colorCam->initialControl.setAutoExposureLimit(declareAndLogParam<int>("i_auto_exposure_limit", 1000));
+    if(declareAndLogParam<bool>("r_set_auto_exposure_limit", false)) {
+        colorCam->initialControl.setAutoExposureLimit(declareAndLogParam<int>("r_auto_exposure_limit", 1000));
     }
-    if(declareAndLogParam("i_set_sharpness", false)) {
-        colorCam->initialControl.setSharpness(declareAndLogParam<int>("i_sharpness", 1));
+    if(declareAndLogParam("r_set_sharpness", false)) {
+        colorCam->initialControl.setSharpness(declareAndLogParam<int>("r_sharpness", 1));
     }
-    if(declareAndLogParam("i_set_chroma_denoise", false)) {
-        colorCam->initialControl.setChromaDenoise(declareAndLogParam<int>("i_chroma_denoise", 1));
+    if(declareAndLogParam("r_set_chroma_denoise", false)) {
+        colorCam->initialControl.setChromaDenoise(declareAndLogParam<int>("r_chroma_denoise", 1));
     }
-    if(declareAndLogParam("i_set_luma_denoise", false)) {
-        colorCam->initialControl.setLumaDenoise(declareAndLogParam<int>("i_luma_denoise", 1));
+    if(declareAndLogParam("r_set_luma_denoise", false)) {
+        colorCam->initialControl.setLumaDenoise(declareAndLogParam<int>("r_luma_denoise", 1));
     }
 }
 dai::CameraControl SensorParamHandler::setRuntimeParams(parametersConfig& config) {
@@ -211,6 +211,18 @@ dai::CameraControl SensorParamHandler::setRuntimeParams(parametersConfig& config
         } else {
             ctrl.setAutoWhiteBalanceMode(dai::CameraControl::AutoWhiteBalanceMode::AUTO);
         }
+        if(config.rgb_r_set_auto_exposure_limit) {
+            ctrl.setAutoExposureLimit(config.rgb_r_auto_exposure_limit);
+        }
+        if(config.rgb_r_set_sharpness) {
+            ctrl.setSharpness(config.rgb_r_sharpness);
+        }
+        if(config.rgb_r_set_chroma_denoise) {
+            ctrl.setChromaDenoise(config.rgb_r_chroma_denoise);
+        }
+        if(config.rgb_r_set_luma_denoise) {
+            ctrl.setLumaDenoise(config.rgb_r_luma_denoise);
+        }
     } else if(getName() == "left") {
         if(config.left_r_set_man_exposure) {
             ctrl.setManualExposure(config.left_r_exposure, config.left_r_iso);
@@ -228,6 +240,18 @@ dai::CameraControl SensorParamHandler::setRuntimeParams(parametersConfig& config
         } else {
             ctrl.setAutoWhiteBalanceMode(dai::CameraControl::AutoWhiteBalanceMode::AUTO);
         }
+        if(config.left_r_set_auto_exposure_limit) {
+            ctrl.setAutoExposureLimit(config.left_r_auto_exposure_limit);
+        }
+        if(config.left_r_set_sharpness) {
+            ctrl.setSharpness(config.left_r_sharpness);
+        }
+        if(config.left_r_set_chroma_denoise) {
+            ctrl.setChromaDenoise(config.left_r_chroma_denoise);
+        }
+        if(config.left_r_set_luma_denoise) {
+            ctrl.setLumaDenoise(config.left_r_luma_denoise);
+        }
     } else if(getName() == "right") {
         if(config.right_r_set_man_exposure) {
             ctrl.setManualExposure(config.right_r_exposure, config.right_r_iso);
@@ -244,6 +268,18 @@ dai::CameraControl SensorParamHandler::setRuntimeParams(parametersConfig& config
             ctrl.setManualWhiteBalance(config.right_r_whitebalance);
         } else {
             ctrl.setAutoWhiteBalanceMode(dai::CameraControl::AutoWhiteBalanceMode::AUTO);
+        }
+        if(config.right_r_set_auto_exposure_limit) {
+            ctrl.setAutoExposureLimit(config.right_r_auto_exposure_limit);
+        }
+        if(config.right_r_set_sharpness) {
+            ctrl.setSharpness(config.right_r_sharpness);
+        }
+        if(config.right_r_set_chroma_denoise) {
+            ctrl.setChromaDenoise(config.right_r_chroma_denoise);
+        }
+        if(config.right_r_set_luma_denoise) {
+            ctrl.setLumaDenoise(config.right_r_luma_denoise);
         }
     }
 
