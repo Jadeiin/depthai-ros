@@ -2,6 +2,12 @@
 Changelog for package depthai-ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.10.3 (2024-11-07)
+-------------------
+* Fix rectified topic names
+* Fix pointcloud launch
+* Add sensor parameters for max autoexposure, sharpness, luma and chroma denoise
+
 2.10.2 (2024-09-26)
 -------------------
 * Fix Stereo K matrix publishing
